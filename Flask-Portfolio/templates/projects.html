@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Projects</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .projects-section {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .project {
+            width: 45%;
+            min-width: 350px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .tech-stack {
+            font-style: italic;
+            color: #7f8c8d;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+        
+        .project p {
+            color: #34495e;
+            line-height: 1.6;
+        }
+        
+        .project button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 25px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .project button:hover {
+            background-color: #2980b9;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 70%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalopen 0.4s;
+        }
+        
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close {
+            color: #7f8c8d;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: #e74c3c;
+        }
+        
+        .project-details {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .project-details ul {
+            padding-left: 20px;
+        }
+        
+        .project-details li {
+            margin-bottom: 10px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .project {
+                width: 90%;
+                min-width: auto;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+            document.body.style.overflow = "auto"; // Re-enable scrolling
+        }
+        
+        window.onclick = function(event) {
+            if (event.target.className === "modal") {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('projects') }}">Projects</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+    </nav>
+
+    <header>
+        <h1>My Projects</h1>
+    </header>
+    
+    <section class="projects-section">
+        <div class="projects-container">
+            <!-- Project 1 -->
+            <div class="project">
+                <h3>Face Recognition Voting System</h3>
+                <div class="tech-stack">Python, OpenCV, PHP, HTML, JavaScript, LBPH Face Recognizer</div>
+                <p>Developed a secure voting system that employs cutting-edge facial recognition technology to prevent fraudulent voting.</p>
+                <button onclick="openModal('modal1')">View Details</button>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project">
+                <h3>Crop Yield Prediction using NPK values</h3>
+                <div class="tech-stack">Linear Regression, Random Forest, Flask Application, HTML</div>
+                <p>Developed a hybrid machine learning pipeline for crop recommendation with 99.3% accuracy.</p>
+                <button onclick="openModal('modal2')">View Details</button>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project">
+                <h3>Scene-to-Text Conversion System</h3>
+                <div class="tech-stack">CNNs, LSTMs, OCR, Data Augmentation</div>
+                <p>Developed a system for generating captions from images with 87% accuracy using VGG19 model.</p>
+                <button onclick="openModal('modal3')">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h3>Face Recognition Voting System</h3>
+            <div class="tech-stack">Technologies: Python, OpenCV, PHP, HTML, JavaScript, LBPH Face Recognizer</div>
+            <div class="project-details">
+                <ul>
+                    <li>Developed a voting system that uses LBPH Face Recognizer to accurately identify and verify individuals based on facial features (89% accuracy)</li>
+                    <li>Enhanced security by implementing face recognition to combat fraudulent voting (85% reduction potential)</li>
+                    <li>Ensured integrity of electoral processes through biometric verification</li>
+                </ul>
+            </div>
+            <a href="https://github.com/arshad1401/Face-Recognition-Voting-System" target="_blank"><button>View on GitHub</button></a>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h3>Crop Yield Prediction using NPK values</h3>
+            <div class="tech-stack">Technologies: Linear Regression, Random Forest, Flask Application, HTML</div>
+            <div class="project-details">
+                <ul>
+                    <li>Developed a hybrid machine learning pipeline combining preprocessing techniques (StandardScaler, MinMaxScaler, PolynomialFeatures)</li>
+                    <li>Implemented feature engineering using Linear Regression residuals and RandomForestClassifier</li>
+                    <li>Achieved 99.3% accuracy in crop recommendations</li>
+                    <li>Designed an interactive prediction interface for real-time crop recommendations based on soil/environmental inputs</li>
+                </ul>
+            </div>
+            <a href="https://github.com/arshad1401/Crop-yeild-prediction-using-NPK-values" target="_blank"><button>View on GitHub</button></a>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h3>Scene-to-Text Conversion System</h3>
+            <div class="tech-stack">Technologies: CNNs, LSTMs, OCR, Data Augmentation</div>
+            <div class="project-details">
+                <ul>
+                    <li>Developed a scene-to-text conversion system using CNNs and LSTMs (87% accuracy with VGG19)</li>
+                    <li>Preprocessed 8,000 images from Flickr8k dataset with data augmentation</li>
+                    <li>Integrated OCR for text extraction in complex scenes</li>
+                    <li>Designed a real-time system for generating captions from live video streams</li>
+                    <li>VGG19 outperformed AlexNet, VGG16, and ResNet50 in evaluations</li>
+                </ul>
+            </div>
+            <a href="https://github.com/arshad1401/Scene-to-Text-Conversion" target="_blank"><button>View on GitHub</button></a>
+        </div>
+    </div>
+</body>
+</html>
